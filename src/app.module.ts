@@ -15,6 +15,7 @@ import { User } from 'src/users/entities/user.entity';
 import { JwtModule } from './jwt/jwt.module';
 import { JwtMiddleware } from 'src/jwt/jwt.middleware';
 import { AuthModule } from './auth/auth.module';
+import { Verification } from 'src/users/entities/verification.entity';
 
 @Module({
   imports: [
@@ -40,7 +41,7 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.DB_USERNAME,
       synchronize: process.env.NODE_ENV !== 'prod',
       logging: true,
-      entities: [User],
+      entities: [User, Verification],
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
