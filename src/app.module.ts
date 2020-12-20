@@ -21,7 +21,7 @@ import { MailModule } from './mail/mail.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: `.${process.env.NODE_ENV}.env`,
       validationSchema: Joi.object({
         NODE_ENV: Joi.string().valid('dev', 'prod', 'test'),
         DB_HOST: Joi.string().required(),
@@ -43,7 +43,7 @@ import { MailModule } from './mail/mail.module';
       password: process.env.DB_PASSWORD,
       username: process.env.DB_USERNAME,
       synchronize: process.env.NODE_ENV !== 'prod',
-      logging: true,
+      logging: process.env.NODE_ENV === 'dev',
       entities: [User, Verification],
     }),
     GraphQLModule.forRoot({

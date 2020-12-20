@@ -22,7 +22,7 @@ registerEnumType(UserRole, { name: 'userRole' });
 @ObjectType()
 @Entity()
 export class User extends CoreEntity {
-  @Column()
+  @Column({ unique: true })
   @Field(() => String)
   @IsEmail()
   email: string;
