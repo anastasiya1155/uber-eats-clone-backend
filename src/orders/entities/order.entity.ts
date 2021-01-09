@@ -4,7 +4,14 @@ import {
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql';
-import { Column, Entity, ManyToMany, ManyToOne, JoinTable, RelationId } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  JoinTable,
+  RelationId,
+} from 'typeorm';
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
@@ -28,12 +35,14 @@ export class Order extends CoreEntity {
   @Field(() => User, { nullable: true })
   @ManyToOne(() => User, (user) => user.orders, {
     onDelete: 'SET NULL',
+    eager: true,
   })
   customer?: User;
 
   @Field(() => User, { nullable: true })
   @ManyToOne(() => User, (user) => user.rides, {
     onDelete: 'SET NULL',
+    eager: true,
   })
   driver?: User;
 
@@ -41,11 +50,14 @@ export class Order extends CoreEntity {
   @ManyToOne(() => Restaurant, (restaurant) => restaurant.orders, {
     onDelete: 'SET NULL',
     nullable: true,
+    eager: true,
   })
   restaurant?: Restaurant;
 
   @Field(() => [OrderItem])
-  @ManyToMany(() => OrderItem)
+  @ManyToMany(() => OrderItem, {
+    eager: true,
+  })
   @JoinTable()
   items: OrderItem[];
 
