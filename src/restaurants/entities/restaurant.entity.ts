@@ -5,7 +5,7 @@ import { CoreEntity } from 'src/common/entities/core.entity';
 import { Category } from 'src/restaurants/entities/category.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Dish } from 'src/restaurants/entities/dish.entity';
-import { Order } from "src/orders/entities/order.entity";
+import { Order } from 'src/orders/entities/order.entity';
 
 @InputType('RestaurantInputType', { isAbstract: true })
 @ObjectType()
@@ -50,4 +50,12 @@ export class Restaurant extends CoreEntity {
   @Field(() => [Order])
   @OneToMany(() => Order, (order) => order.restaurant)
   orders: Order[];
+
+  @Field(() => Boolean)
+  @Column({ default: false })
+  isPromoted: boolean;
+
+  @Field(() => Date, { nullable: true })
+  @Column({ nullable: true })
+  promotedUntil?: Date;
 }
