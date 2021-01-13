@@ -1,18 +1,12 @@
 import { join } from 'path';
 import * as Joi from 'joi';
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { User } from 'src/users/entities/user.entity';
 import { JwtModule } from './jwt/jwt.module';
-import { JwtMiddleware } from 'src/jwt/jwt.middleware';
 import { AuthModule } from './auth/auth.module';
 import { Verification } from 'src/users/entities/verification.entity';
 import { MailModule } from './mail/mail.module';
@@ -23,7 +17,9 @@ import { Dish } from 'src/restaurants/entities/dish.entity';
 import { OrdersModule } from './orders/orders.module';
 import { Order } from 'src/orders/entities/order.entity';
 import { OrderItem } from 'src/orders/entities/order-item.entity';
-import { CommonModule } from "src/common/common.module";
+import { CommonModule } from 'src/common/common.module';
+import { PaymentsModule } from './payments/payments.module';
+import { Payment } from 'src/payments/entities/payment.entity';
 
 @Module({
   imports: [
@@ -60,6 +56,7 @@ import { CommonModule } from "src/common/common.module";
         Dish,
         Order,
         OrderItem,
+        Payment,
       ],
     }),
     GraphQLModule.forRoot({
@@ -87,6 +84,7 @@ import { CommonModule } from "src/common/common.module";
     RestaurantsModule,
     OrdersModule,
     CommonModule,
+    PaymentsModule,
   ],
   controllers: [],
   providers: [],
