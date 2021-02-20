@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { ILike, Repository } from 'typeorm';
 import {
-  CreateRestaurantInputType,
-  CreateRestaurantOutputType,
+  CreateRestaurantInput,
+  CreateRestaurantOutput,
 } from 'src/restaurants/dtos/create-restaurant.dto';
 import { User } from 'src/users/entities/user.entity';
 import { Category } from 'src/restaurants/entities/category.entity';
@@ -47,6 +47,11 @@ import {
   DeleteDishInput,
   DeleteDishOutput,
 } from 'src/restaurants/dtos/delete-dish.dto';
+import { MyRestaurantsOutput } from 'src/restaurants/dtos/my-restaurants';
+import {
+  MyRestaurantInput,
+  MyRestaurantOutput,
+} from 'src/restaurants/dtos/my-restaurant';
 
 @Injectable()
 export class RestaurantsService {
@@ -60,8 +65,8 @@ export class RestaurantsService {
 
   async createRestaurant(
     owner: User,
-    createRestaurantInput: CreateRestaurantInputType,
-  ): Promise<CreateRestaurantOutputType> {
+    createRestaurantInput: CreateRestaurantInput,
+  ): Promise<CreateRestaurantOutput> {
     try {
       const newRestaurant = this.restaurants.create(createRestaurantInput);
       newRestaurant.owner = owner;
@@ -322,6 +327,41 @@ export class RestaurantsService {
       return { ok: true };
     } catch (err) {
       return { ok: false, error: 'Could not delete dish' };
+    }
+  }
+
+  async myRestaurants(owner: User): Promise<MyRestaurantsOutput> {
+    try {
+      const restaurants = await this.restaurants.find({ owner });
+      return {
+        restaurants,
+        ok: true,
+      };
+    } catch {
+      return {
+        ok: false,
+        error: 'Could not find restaurants.',
+      };
+    }
+  }
+  async myRestaurant(
+    owner: User,
+    { id }: MyRestaurantInput,
+  ): Promise<MyRestaurantOutput> {
+    try {
+      const restaurant = await this.restaurants.findOne(
+        { owner, id },
+        { relations: ['menu', 'orders'] },
+      );
+      return {
+        restaurant,
+        ok: true,
+      };
+    } catch {
+      return {
+        ok: false,
+        error: 'Could not find restaurant',
+      };
     }
   }
 }

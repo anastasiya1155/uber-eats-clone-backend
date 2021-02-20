@@ -3,7 +3,7 @@ import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { CoreOutput } from 'src/common/dtos/output.dto';
 
 @InputType()
-export class CreateRestaurantInputType extends PickType(
+export class CreateRestaurantInput extends PickType(
   Restaurant,
   ['name', 'coverImg', 'address'],
   InputType,
@@ -13,4 +13,4 @@ export class CreateRestaurantInputType extends PickType(
 }
 
 @ObjectType()
-export class CreateRestaurantOutputType extends CoreOutput {}
+export class CreateRestaurantOutput extends CoreOutput {}
