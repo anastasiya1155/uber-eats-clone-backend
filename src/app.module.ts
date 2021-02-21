@@ -41,8 +41,8 @@ console.log(process.env.DATABASE_URL);
         MAILGUN_API_KEY: Joi.string().required(),
         MAILGUN_DOMAIN_NAME: Joi.string().required(),
         MAILGUN_FROM_EMAIL: Joi.string().required(),
-        ACCESS_KEY_ID: Joi.string().required(),
-        SECRET_ACCESS_KEY: Joi.string().required(),
+        AWS_KEY: Joi.string().required(),
+        AWS_SECRET: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRoot({
