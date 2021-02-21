@@ -59,7 +59,7 @@ console.log(process.env.DATABASE_URL);
       synchronize: process.env.NODE_ENV !== 'production',
       logging: process.env.NODE_ENV === 'dev',
       extra: {
-        ssl: true,
+        ssl: { rejectUnauthorized: false },
       },
       entities: [
         User,
