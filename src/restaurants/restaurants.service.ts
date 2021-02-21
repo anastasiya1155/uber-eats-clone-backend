@@ -187,8 +187,8 @@ export class RestaurantsService {
       const restaurants = await this.restaurants.find({
         where: { category },
         order: { isPromoted: 'DESC' },
-        take: 25,
-        skip: (page - 1) * 25,
+        take: 6,
+        skip: (page - 1) * 6,
       });
       const totalResults = await this.countRestaurants(category);
       return {
@@ -206,8 +206,8 @@ export class RestaurantsService {
   async allRestaurants({ page }: RestaurantsInput): Promise<RestaurantsOutput> {
     try {
       const [restaurants, totalResults] = await this.restaurants.findAndCount({
-        skip: (page - 1) * 25,
-        take: 25,
+        skip: (page - 1) * 6,
+        take: 6,
         order: { isPromoted: 'DESC' },
       });
       return {
@@ -244,8 +244,8 @@ export class RestaurantsService {
     try {
       const [restaurants, totalResults] = await this.restaurants.findAndCount({
         where: { name: ILike(`%${query}%`) },
-        skip: (page - 1) * 25,
-        take: 25,
+        skip: (page - 1) * 6,
+        take: 6,
       });
       return {
         ok: true,
