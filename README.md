@@ -31,3 +31,5 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+[Demo](https://uber-eats-clone-backend.herokuapp.com/graphql)
