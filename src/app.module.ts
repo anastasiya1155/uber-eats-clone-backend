@@ -23,7 +23,8 @@ import { Payment } from 'src/payments/entities/payment.entity';
 import { ScheduleModule } from '@nestjs/schedule';
 import { UploadsModule } from 'src/uploads/uploads.module';
 
-console.log(process.env.DATABASE_URL);
+const KABOOM = 'KABOOM';
+console.log(KABOOM);
 @Module({
   imports: [
     ConfigModule.forRoot({
